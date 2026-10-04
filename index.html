@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:root { color-scheme: light; padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<title>Branding aziendale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: home = headline, intro, Start. Phase 1 = per name (random order): naked name screen, then 5 questions. No way back. */
+:root {
+  --bg: #F1F3F8;
+  --surface: #FFFFFF;
+  --ink: #11162B;
+  --muted: #586078;
+  --line: #D6DBE8;
+  --accent: #2D3CE6;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E3E6FD;
+  --ok: #1B7F4B;
+  --warn: #9A5B00;
+  --font-display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1120;
+    --surface: #161B30;
+    --ink: #EDEFF8;
+    --muted: #9AA3BF;
+    --line: #2A3150;
+    --accent: #8793FF;
+    --accent-ink: #0D1120;
+    --accent-soft: #232A55;
+    --ok: #5FD39A;
+    --warn: #F0B35A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1120;
+  --surface: #161B30;
+  --ink: #EDEFF8;
+  --muted: #9AA3BF;
+  --line: #2A3150;
+  --accent: #8793FF;
+  --accent-ink: #0D1120;
+  --accent-soft: #232A55;
+  --ok: #5FD39A;
+  --warn: #F0B35A;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  padding-inline: clamp(16px, 5vw, 56px);
+  padding-block: 20px 64px;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.app { max-width: 1040px; margin-inline: auto; display: flex; flex-direction: column; gap: clamp(28px, 6vw, 56px); }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.mark { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+h1, h2 { font-family: var(--font-display); margin: 0; text-wrap: balance; letter-spacing: -0.03em; }
+.eyebrow, .tag { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+
+/* Home */
+.home { display: flex; flex-direction: column; gap: clamp(24px, 4vw, 40px); }
+.home h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 800; line-height: 1.01; max-width: 14ch; }
+.intro { display: flex; flex-direction: column; gap: 10px; max-width: 56ch; margin-top: 20px; color: var(--muted); font-size: 1.1rem; }
+.intro p { margin: 0; }
+.intro p:first-child { color: var(--ink); font-size: 1.2rem; }
+.cta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.meta { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.primary { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 12px; padding: 16px 30px; font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; transition: transform .15s ease, opacity .15s ease; }
+.primary:hover:not(:disabled) { transform: translateY(-2px); }
+.primary:disabled { opacity: .35; cursor: not-allowed; }
+.ghost { background: none; border: 0; padding: 8px 0; color: var(--muted); font-size: .95rem; }
+.ghost:hover { color: var(--ink); }
+.foot { display: flex; justify-content: flex-end; }
+
+/* Quiz */
+.quiz, .done, .results { width: 100%; max-width: 760px; margin-inline: auto; display: flex; flex-direction: column; gap: 22px; }
+.qbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.count { font-family: var(--font-mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.progress { height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--accent); border-radius: 4px; transition: width .4s ease; }
+.slide { display: flex; flex-direction: column; gap: 22px; padding-top: clamp(8px, 3vw, 28px); min-width: 0; }
+.slide h2, .done h2, .results h2 { font-size: clamp(1.7rem, 4.6vw, 2.6rem); font-weight: 700; line-height: 1.1; }
+.hint { color: var(--muted); margin: 0; }
+@keyframes inFwd { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+.in-fwd { animation: inFwd .3s ease-out both; }
+
+/* Name shown bare: same neutral font, same size, black on white, for every name */
+.naked { background: #FFFFFF; color: #000000; border: 1px solid var(--line); border-radius: 14px; min-height: clamp(190px, 36vw, 300px); display: grid; place-items: center; padding: 24px 16px; }
+.naked span { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700; font-size: clamp(1.5rem, 7vw, 3rem); letter-spacing: 0; line-height: 1; white-space: nowrap; }
+.namebar { align-self: flex-start; background: #FFFFFF; color: #000000; border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.2; margin-bottom: 18px; }
+
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.sc { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 96px; padding: 10px 2px; background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; transition: border-color .15s ease, background .15s ease; min-width: 0; }
+.sc b { font-family: var(--font-display); font-weight: 700; font-size: 1.8rem; line-height: 1; }
+.sc span { font-size: .72rem; line-height: 1.15; color: var(--muted); text-align: center; overflow-wrap: anywhere; }
+.sc:hover { border-color: var(--accent); }
+.sc.sel { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.sc.sel span { color: var(--accent-ink); }
+
+textarea, input[type="text"] { width: 100%; background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; font-family: var(--font-body); font-size: 1rem; line-height: 1.5; }
+textarea { min-height: 150px; resize: vertical; }
+textarea:focus-visible, input[type="text"]:focus-visible { border-color: var(--accent); }
+.fields { display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 6px; font-size: .9rem; color: var(--muted); }
+.actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+/* Done + results */
+.status { font-size: .95rem; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); margin: 0; }
+.status.ok { color: var(--ok); }
+.status.warn { color: var(--warn); }
+.secondary { background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 20px; font-weight: 500; }
+.secondary:hover { border-color: var(--accent); }
+.block { display: flex; flex-direction: column; gap: 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+.block h3 { font-family: var(--font-display); font-size: 1.3rem; margin: 0; letter-spacing: -0.01em; }
+.block h4 { margin: 8px 0 0; font-size: .85rem; font-weight: 500; color: var(--muted); }
+.bar { display: grid; grid-template-columns: minmax(0, 11rem) 1fr 2.4rem; gap: 12px; align-items: center; font-size: .95rem; }
+.bar .bl { overflow-wrap: anywhere; }
+.track { height: 10px; border-radius: 6px; background: var(--line); overflow: hidden; }
+.track i { display: block; height: 100%; background: var(--accent); }
+.bn { font-family: var(--font-mono); font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; }
+.notes { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.notes li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; overflow-wrap: anywhere; }
+
+@media (prefers-reduced-motion: reduce) {
+  .in-fwd { animation: none; }
+  .progress i, .primary, .sc { transition: none; }
+}
+
+/* Fase 1: nome da solo, sempre nero su bianco, stesso carattere */
+.qbar .tag { margin: 0; }
+.stim { background: #FFFFFF; color: #000000; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-weight: 700; text-align: center; border-radius: 14px; border: 1px solid var(--line); }
+.stim span { display: block; white-space: nowrap; }
+.stim.big { padding: clamp(40px, 12vw, 96px) 16px; font-size: clamp(1.3rem, 7.4vw, 4rem); }
+.stim.sm { padding: 16px; font-size: clamp(1.2rem, 5vw, 1.6rem); }
+.fields { display: flex; flex-direction: column; gap: 10px; }
+input[type="text"] { width: 100%; background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; font-family: var(--font-body); font-size: 1rem; }
+input[type="text"]:focus-visible { border-color: var(--accent); }
+.primary:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+.scale.lab .sc { aspect-ratio: auto; max-height: none; min-height: 88px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 10px 4px; font-size: 1rem; }
+.scale.lab .sc .num { font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; line-height: 1; }
+.scale.lab .sc small { font-family: var(--font-body); font-size: .85rem; font-weight: 500; opacity: .85; }
+@media (max-width: 560px) {
+  .scale.lab { grid-template-columns: 1fr; }
+  .scale.lab .sc { flex-direction: row; justify-content: flex-start; gap: 16px; min-height: 56px; padding: 10px 18px; }
+  .scale.lab .sc small { font-size: 1rem; }
+}
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+th.num, td.num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+td.hi { color: var(--accent); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { background: var(--accent-soft); color: var(--ink); border-radius: 999px; padding: 3px 12px; font-size: .9rem; overflow-wrap: anywhere; }
+
+/* Fasi 2-8 */
+.infobox { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: clamp(20px, 4vw, 32px); display: flex; flex-direction: column; gap: 14px; }
+.infobox p { margin: 0; font-size: clamp(1.1rem, 2.6vw, 1.35rem); line-height: 1.45; }
+.ctx { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; color: var(--muted); }
+.lockups { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+.stim.lock { text-align: left; padding: 18px 20px; display: flex; flex-direction: column; gap: 4px; font-weight: 400; }
+.stim.lock .lk-n { font-weight: 700; font-size: clamp(1.1rem, 4.6vw, 1.5rem); white-space: nowrap; }
+.stim.lock .lk-d { font-size: .95rem; white-space: normal; }
+.opt.nm-opt .lbl { font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-weight: 700; font-size: 1.25rem; letter-spacing: 0; }
+.opt .lbl .lk-n { display: block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-weight: 700; font-size: 1.2rem; }
+.opt .lbl .lk-d { display: block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-weight: 400; font-size: .9rem; color: var(--muted); margin-top: 2px; }
+.opt.multi .ck { display: none; }
+.opt.multi.sel .ck { display: inline; }
+.opt.multi.sel .k { display: none; }
+.opt.off { opacity: .45; }
+.selcount { margin: 0; min-height: 1.2em; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.whyl { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; }
+td.hineg { color: var(--warn); font-weight: 600; }
+
+/* Opzioni di risposta */
+.opts { display: grid; gap: 10px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .opts.two { grid-template-columns: 1fr 1fr; } }
+.opt { display: flex; align-items: center; gap: 14px; text-align: left; width: 100%; background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 16px 18px; font-size: 1.05rem; min-width: 0; transition: border-color .15s ease, background .15s ease; }
+.opt:hover { border-color: var(--accent); }
+.opt .key { flex: none; width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 7px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.opt .lbl { min-width: 0; overflow-wrap: anywhere; }
+.opt.sel { background: var(--accent-soft); border-color: var(--accent); }
+.opt.sel .key { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+/* Registro risultati */
+.reg { width: 100%; max-width: 1040px; margin-inline: auto; display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.reg h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 700; line-height: 1.1; margin: 0; }
+.regtop { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.regtop .tag { margin: 0; }
+.rg-tabs { display: flex; gap: 6px; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+.rg-tab { background: none; border: 0; border-bottom: 3px solid transparent; padding: 10px 14px; font-weight: 500; color: var(--muted); margin-bottom: -1px; }
+.rg-tab:hover { color: var(--ink); }
+.rg-tab.on { color: var(--ink); border-bottom-color: var(--accent); }
+.rg-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.rg-filters, .rg-acts { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.rg-chip { background: var(--surface); border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: .95rem; }
+.rg-chip.on { background: var(--accent-soft); border-color: var(--accent); }
+.secondary { background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 18px; font-weight: 500; }
+.secondary:hover:not(:disabled) { border-color: var(--accent); }
+.secondary:disabled, .ghost:disabled { opacity: .4; cursor: not-allowed; }
+.rg-danger { background: var(--warn); color: var(--bg); border: 0; border-radius: 10px; padding: 10px 16px; font-weight: 600; }
+.rg-v { margin: 0; overflow-wrap: anywhere; }
+.status.ok { color: var(--ok); }
+.status.warn { color: var(--warn); }
+.entry { display: flex; flex-direction: column; gap: 18px; }
+.entry .field { display: flex; flex-direction: column; gap: 6px; font-size: .9rem; color: var(--muted); min-width: 0; }
+.rg-meta { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+input[type="date"] { width: 100%; background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; font-family: var(--font-body); font-size: 1rem; }
+.rg-order { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.rg-lbl { font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.rg-chips { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.rg-chips li { background: var(--accent-soft); border-radius: 8px; padding: 4px 10px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-weight: 700; font-size: .9rem; display: flex; gap: 8px; align-items: center; }
+.rg-chips li b { font-family: var(--font-mono); font-weight: 500; color: var(--accent); }
+.rg-h { font-family: var(--font-display); font-size: 1.3rem; margin: 10px 0 0; }
+.rg-card { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 16px 18px 18px; margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.rg-card legend { padding: 0 8px; font-weight: 600; max-width: 100%; }
+.rg-pos { font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-left: 10px; font-weight: 500; }
+.rg-three { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); }
+.rg-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: .95rem; }
+.rg-seg { display: flex; gap: 6px; }
+.rg-so, .rg-o { position: relative; }
+.rg-so input, .rg-o input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.rg-so span { display: grid; place-items: center; width: 42px; height: 42px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--bg); font-family: var(--font-mono); }
+.rg-so input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.rg-so input:focus-visible + span, .rg-o input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+.rg-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.rg-o span { display: inline-block; border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 14px; background: var(--bg); overflow-wrap: anywhere; }
+.rg-o input:checked + span { background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+
+tr.base td { color: var(--muted); border-top: 2px solid var(--line); font-size: .85rem; }
+
+/* Indietro */
+.qnav { min-height: 36px; display: flex; align-items: center; margin-bottom: -12px; }
+@keyframes inBack { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+.in-back { animation: inBack .3s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .in-back { animation: none; } }
+</style>
+
+</head>
+<body>
+<div class="app">
+  <header class="top"><span class="mark">Branding aziendale</span></header>
+  <main id="view"></main>
+</div>
+
+<script src="config.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var NAMES = [
+    { id: 'A', name: 'AUEM' },
+    { id: 'B', name: 'CAVALLO' },
+    { id: 'C', name: 'CAVALLO SPAZI' },
+    { id: 'D', name: 'HOLOS' },
+    { id: 'E', name: 'SPAZIOPRONTO' },
+    { id: 'F', name: 'SPAZIOUFFICIO' }
+  ];
+  var DESC = {
+    'AUEM': 'Spazi professionali',
+    'CAVALLO': 'Spazi professionali',
+    'CAVALLO SPAZI': 'Progettazione e realizzazione',
+    'HOLOS': 'Space Design',
+    'SPAZIOPRONTO': 'Progettazione e realizzazione di spazi professionali',
+    'SPAZIOUFFICIO': 'Progettazione e realizzazione'
+  };
+  var QUOTES = {
+    'AUEM': '“AUEM.”',
+    'CAVALLO': '“Cavallo.”',
+    'CAVALLO SPAZI': '“Cavallo Spazi.”',
+    'HOLOS': '“Holos.”',
+    'SPAZIOPRONTO': '“SpazioPronto.”',
+    'SPAZIOUFFICIO': '“SpazioUfficio.”'
+  };
+  var RECALL = {
+    'AUEM': /auem/i,
+    'CAVALLO': /cavallo(?!\s*spazi)/i,
+    'CAVALLO SPAZI': /cavallo\s*spazi/i,
+    'HOLOS': /holos/i,
+    'SPAZIOPRONTO': /spazio\s*pronto/i,
+    'SPAZIOUFFICIO': /spazio\s*ufficio/i
+  };
+  var NONE = '__none__';
+  var SCALE = ['Per niente', 'Poco', 'Abbastanza', 'Molto', 'Moltissimo'];
+  var LS_KEY = 'branding-progress-v2';
+
+  /* Fase 1: stesse cinque domande, ripetute per ogni nome. */
+  var P1 = [
+    { key: 'd1', type: 'long', hint: 'Scrivi la prima cosa che ti viene in mente.',
+      text: function (n) { return 'Senza altre informazioni, cosa pensi faccia un’azienda chiamata “' + n + '”?'; } },
+    { key: 'd2', type: 'three', text: 'Quali 3 caratteristiche ti trasmette questo nome?' },
+    { key: 'd3', type: 'rate', text: 'Quanto trovi questo nome facile da ricordare?' },
+    { key: 'd4', type: 'rate', text: 'Quanto ti sembra professionale e autorevole?' },
+    { key: 'd5', type: 'rate', text: 'Quanto ti sembra adatto a un’azienda a cui affidare un progetto importante?' }
+  ];
+
+  /* Fasi 2–8. col = etichetta breve per la tabella dei risultati. */
+  var AFTER = [
+    { type: 'info', tag: 'L’azienda', paras: [
+      'Immagina ora che tutti i nomi precedenti appartengano a un’azienda che progetta e realizza spazi professionali completi — uffici aziendali, studi professionali e spazi medicali — occupandosi del progetto fino alla realizzazione, dagli impianti e dalle pareti fino agli arredi.'] },
+    { id: 'd6', tag: 'L’azienda', type: 'multi', names: true, max: 2, col: 'Coerente',
+      text: 'Quali nomi ti sembrano più coerenti con questa attività?', hint: 'Scegli massimo 2.' },
+    { id: 'd7', tag: 'L’azienda', type: 'multi', names: true, none: 'Nessuno di questi', neg: true, col: 'Mobilificio',
+      text: 'Quali nomi ti fanno pensare soprattutto a un negozio o rivenditore di mobili?', hint: 'Puoi sceglierne più di uno.' },
+    { id: 'd8', tag: 'L’azienda', type: 'multi', names: true, max: 2, col: 'Progetta e realizza',
+      text: 'Quali nomi ti fanno pensare maggiormente a un’azienda che PROGETTA E REALIZZA INTERAMENTE uno spazio?', hint: 'Scegli massimo 2.' },
+    { id: 'd9', tag: 'L’azienda', type: 'multi', names: true, max: 2, col: 'Presente in Italia',
+      text: 'Quali nomi potrebbero appartenere, secondo te, a un’azienda presente in tutta Italia?', hint: 'Scegli massimo 2.' },
+    { type: 'info', tag: 'Una nuova sede', paras: [
+      'Adesso cambiamo scenario.',
+      'Immagina di essere il titolare di un’azienda che sta realizzando una nuova sede.',
+      'L’intervento comprende progettazione degli ambienti, pareti, impianti, illuminazione, arredi e installazione.',
+      'È un progetto importante e cerchi un interlocutore affidabile a cui affidare l’intera realizzazione.'] },
+    { id: 'd10', tag: 'Una nuova sede', type: 'multi', names: true, max: 2, exact: true, col: 'Shortlist',
+      text: 'Basandoti esclusivamente sui nomi, quali 2 aziende prenderesti per prime in considerazione per approfondire?', hint: 'Scegline 2.' },
+    { id: 'd11', tag: 'Passaparola', type: 'multi', names: true, max: 2, fmt: QUOTES, col: 'Passaparola',
+      lead: 'Immagina di aver appena visitato la nuova sede di un’azienda. Ti piace molto e chiedi al proprietario: “Chi vi ha progettato e realizzato gli uffici?”',
+      text: 'Quali di queste risposte ti sembrano più naturali e credibili?', hint: 'Scegli massimo 2.' },
+    { id: 'd12', noBack: true, tag: 'Su di te', type: 'choice', text: 'Qual è la tua fascia d’età?',
+      opts: ['18–29', '30–39', '40–49', '50–59', '60+'] },
+    { id: 'd13', tag: 'Su di te', type: 'choice', text: 'Quale descrizione ti rappresenta maggiormente?',
+      opts: ['Imprenditore/titolare d’azienda', 'Libero professionista', 'Medico/professionista sanitario', 'Architetto/interior designer/progettista', 'Manager/responsabile aziendale', 'Dipendente', 'Altro'] },
+    { id: 'd14', tag: 'Su di te', type: 'choice', text: 'Hai mai partecipato alla scelta di fornitori per la realizzazione/ristrutturazione di un ufficio, studio, negozio o sede aziendale?',
+      opts: ['Sì, direttamente', 'Sì, parzialmente', 'No'] },
+    { id: 'd15', tag: 'Scelta del fornitore', type: 'multi', max: 3,
+      text: 'Se dovessi scegliere un’azienda per realizzare una nuova sede, quali aspetti considereresti più importanti?', hint: 'Scegli massimo 3.',
+      opts: ['Esperienza', 'Qualità dei progetti precedenti', 'Capacità di seguire tutto', 'Prezzo', 'Affidabilità', 'Design', 'Tempi di consegna', 'Referenze/passaparola', 'Assistenza', 'Varietà delle soluzioni'] },
+    { id: 'd16', tag: 'Ricordi', type: 'recall',
+      text: 'Scrivi tutti i nomi di aziende che ricordi di aver visto all’inizio del questionario.', hint: 'Non importa se non sei sicuro dell’ortografia.' },
+    { type: 'lockups', noBack: true, tag: 'Nome e descrizione', text: 'Ecco i nomi con la loro descrizione.' },
+    { id: 'd17', tag: 'Nome e descrizione', type: 'multi', names: true, desc: true, max: 2, col: 'Comunica ciò che fa',
+      text: 'Ora che vedi nome + descrizione, quali identità ti sembrano comunicare meglio ciò che fa l’azienda?', hint: 'Scegli massimo 2.' },
+    { id: 'd18', tag: 'Nome e descrizione', type: 'multi', names: true, desc: true, max: 2, col: 'Marchio nazionale',
+      text: 'Quali ti sembrano più adatte a diventare un marchio nazionale nel tempo?', hint: 'Scegli massimo 2.' },
+    { id: 'd19', tag: 'Nome e descrizione', type: 'multi', names: true, desc: true, max: 2, col: 'Dura nel tempo',
+      text: 'Quali ti sembrano meno legate alle mode del momento e più capaci di durare negli anni?', hint: 'Scegli massimo 2.' },
+    { id: 'd20', tag: 'Dubbi', type: 'objection', names: true, none: 'Nessuno', neg: true, col: 'Non lo userei',
+      text: 'C’è un nome che NON useresti?', hint: 'Puoi sceglierne più di uno.' },
+    { id: 'd21', tag: 'Per finire', type: 'choice', names: true, col: 'Più impresso',
+      text: 'A prescindere da tutte le domande precedenti, quale nome ti è rimasto più impresso?',
+      hint: 'Una sola scelta. Non quale è più bello: quale ti è rimasto impresso.' }
+  ];
+
+  var st = { view: 'home', i: 0, steps: [], order: [], sel: [], answers: { p1: {} }, dir: 'fwd', save: 'idle', res: null, tab: 'riepilogo', detail: null, filter: 'tutte', msg: '', msgKind: 'ok', conf: null, editId: null };
+  var lock = false;
+  var view = document.getElementById('view');
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+  function letter(i) { return String.fromCharCode(65 + i); }
+  function shuffle(a) {
+    var b = a.slice();
+    for (var i = b.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1)), t = b[i]; b[i] = b[j]; b[j] = t;
+    }
+    return b;
+  }
+  function avg(a) { return a.length ? a.reduce(function (x, y) { return x + y; }, 0) / a.length : null; }
+
+  /* ---------- Passi del questionario ---------- */
+  function buildSteps() {
+    var s = [];
+    st.order.forEach(function (name, k) {
+      var tag = 'Nome ' + (k + 1) + ' di ' + st.order.length;
+      s.push({ type: 'stim', name: name, tag: tag });
+      P1.forEach(function (p) {
+        s.push({ type: p.type, name: name, key: p.key, tag: tag, hint: p.hint,
+                 text: typeof p.text === 'function' ? p.text(name) : p.text });
+      });
+    });
+    AFTER.forEach(function (q) { s.push(q); });
+    return s;
+  }
+  function setAns(s, v) {
+    if (s.name) {
+      st.answers.p1[s.name] = st.answers.p1[s.name] || {};
+      st.answers.p1[s.name][s.key] = v;
+    } else st.answers[s.id] = v;
+  }
+  function getAns(s) {
+    if (s.name) { var o = st.answers.p1[s.name]; return o ? o[s.key] : undefined; }
+    return st.answers[s.id];
+  }
+  function clearAns(s) {
+    if (s.name) { if (st.answers.p1[s.name]) delete st.answers.p1[s.name][s.key]; }
+    else { delete st.answers[s.id]; if (s.id === 'd20') delete st.answers.d20why; }
+  }
+  function initialSel(s) {
+    if (!s || (s.type !== 'multi' && s.type !== 'objection')) return [];
+    var a = getAns(s);
+    if (!Array.isArray(a)) return [];
+    return (a.length === 0 && s.none) ? [NONE] : a.slice();
+  }
+  function optsFor(s) { return s.names ? st.order.slice() : (s.opts || []).slice(); }
+  function valsFor(s) { return optsFor(s).concat(s.none ? [NONE] : []); }
+  function realSel() { return st.sel.filter(function (v) { return v !== NONE; }); }
+
+  /* Il progresso resta nel browser: ricaricare la pagina non permette di tornare indietro. */
+  function persist() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify({ order: st.order, i: st.i, answers: st.answers })); } catch (e) {}
+  }
+  function clearProgress() { try { localStorage.removeItem(LS_KEY); } catch (e) {} }
+  function restore() {
+    try {
+      var raw = localStorage.getItem(LS_KEY);
+      if (!raw) return false;
+      var d = JSON.parse(raw), names = NAMES.map(function (n) { return n.name; });
+      if (!d || !Array.isArray(d.order) || d.order.length !== names.length) return false;
+      if (names.some(function (n) { return d.order.indexOf(n) < 0; })) return false;
+      st.order = d.order;
+      st.answers = (d.answers && typeof d.answers === 'object') ? d.answers : {};
+      if (!st.answers.p1) st.answers.p1 = {};
+      st.steps = buildSteps();
+      if (typeof d.i !== 'number' || d.i < 0 || d.i >= st.steps.length) return false;
+      st.i = d.i; st.view = 'quiz';
+      return true;
+    } catch (e) { return false; }
+  }
+
+  /* ---------- Home ---------- */
+  function homeHTML() {
+    var h = '<section class="home"><div>';
+    h += '<p class="eyebrow">Ricerca sulla percezione</p>';
+    h += '<h1>Branding aziendale</h1>';
+    h += '<div class="intro">';
+    h += '<p>Stiamo conducendo una breve ricerca sulla percezione di alcuni possibili nomi per un’azienda che opera nel mondo degli spazi professionali.</p>';
+    h += '<p>Il questionario dura circa 4–5 minuti.</p>';
+    h += '<p>Non esistono risposte corrette o sbagliate: ci interessa esclusivamente la tua prima impressione.</p>';
+    h += '<p>Ti chiediamo di non cercare i nomi online durante il questionario.</p>';
+    h += '</div></div>';
+    h += '<div class="cta"><button class="primary" data-act="start">Start →</button></div>';
+    h += '</section>';
+    return h;
+  }
+
+  /* ---------- Quiz ---------- */
+  function optHTML(s, idx, v, on) {
+    var multi = s.type === 'multi' || s.type === 'objection';
+    var inner;
+    if (v === NONE) inner = '<span class="lbl">' + esc(s.none) + '</span>';
+    else if (s.desc) inner = '<span class="lbl"><b class="lk-n">' + esc(v) + '</b><small class="lk-d">' + esc(DESC[v]) + '</small></span>';
+    else if (s.fmt) inner = '<span class="lbl">' + esc(s.fmt[v]) + '</span>';
+    else inner = '<span class="lbl">' + esc(v) + '</span>';
+    var key = multi
+      ? '<span class="key"><span class="k">' + letter(idx) + '</span><span class="ck">✓</span></span>'
+      : '<span class="key">' + letter(idx) + '</span>';
+    return '<button class="opt' + (multi ? ' multi' : '') + (s.names && v !== NONE ? ' nm-opt' : '') + (on ? ' sel' : '') + '" data-act="' + (multi ? 'toggle' : 'pick') + '" data-i="' + idx + '"' +
+      (multi ? ' role="checkbox" aria-checked="false"' : '') + '>' + key + inner + '</button>';
+  }
+
+  function quizHTML() {
+    var s = st.steps[st.i], n = st.steps.length, h = '';
+    var go = '<div class="actions"><button class="primary" id="next" data-act="next">Continua →</button></div>';
+    var skip = '<button class="ghost" data-act="skip">Salta</button>';
+    var prev = getAns(s), canBack = st.i > 0 && !s.noBack;
+    var fwd = (prev !== undefined) ? '<button class="primary" id="next" data-act="next">Avanti →</button>' : '';
+    h += '<section class="quiz"><div class="qnav">' + (canBack ? '<button class="ghost" data-act="back">← Indietro</button>' : '') + '</div>';
+    h += '<div class="qbar"><span class="tag">' + esc(s.tag) + '</span>';
+    h += '<span class="count">' + pad(st.i + 1) + ' / ' + pad(n) + '</span></div>';
+    h += '<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="' + n + '" aria-valuenow="' + st.i + '"><i style="width:' + (st.i / n * 100) + '%"></i></div>';
+    h += '<div class="slide ' + (st.dir === 'back' ? 'in-back' : 'in-fwd') + '">';
+
+    if (s.type === 'stim') {
+      h += '<p class="hint">Guarda il nome, poi continua.</p>';
+      h += '<div class="stim big"><span>' + esc(s.name) + '</span></div>' + go;
+    } else if (s.type === 'info') {
+      h += '<div class="infobox">' + s.paras.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div>' + go;
+    } else if (s.type === 'lockups') {
+      h += '<h2>' + esc(s.text) + '</h2><div class="lockups">';
+      st.order.forEach(function (nm) {
+        h += '<div class="stim lock"><span class="lk-n">' + esc(nm) + '</span><span class="lk-d">' + esc(DESC[nm]) + '</span></div>';
+      });
+      h += '</div>' + go;
+    } else {
+      if (s.name) h += '<div class="stim sm"><span>' + esc(s.name) + '</span></div>';
+      if (s.lead) h += '<p class="ctx">' + esc(s.lead) + '</p>';
+      h += '<h2>' + esc(s.text) + '</h2>';
+      if (s.hint) h += '<p class="hint">' + esc(s.hint) + '</p>';
+
+      if (s.type === 'long' || s.type === 'recall') {
+        h += '<div class="fields"><textarea id="f0" maxlength="600" placeholder="Scrivi qui">' + esc(typeof prev === 'string' ? prev : '') + '</textarea></div>';
+        h += '<div class="actions"><button class="primary" id="next" data-act="next"' + (s.type === 'long' && !prev ? ' disabled' : '') + '>Avanti →</button>' + skip + '</div>';
+      } else if (s.type === 'three') {
+        h += '<div class="fields">';
+        ['Prima caratteristica', 'Seconda caratteristica', 'Terza caratteristica'].forEach(function (ph, k) {
+          h += '<input type="text" id="f' + k + '" maxlength="60" autocomplete="off" placeholder="' + ph + '" aria-label="' + ph + '" value="' + esc((Array.isArray(prev) && prev[k]) || '') + '">';
+        });
+        var full = Array.isArray(prev) && prev.length === 3 && prev.every(Boolean);
+        h += '</div><div class="actions"><button class="primary" id="next" data-act="next"' + (full ? '' : ' disabled') + '>Avanti →</button>' + skip + '</div>';
+      } else if (s.type === 'rate') {
+        h += '<div class="scale lab">';
+        for (var k = 1; k <= 5; k++) {
+          h += '<button class="sc' + (prev === k ? ' sel' : '') + '" data-act="pick" data-n="' + k + '"><span class="num">' + k + '</span><small>' + SCALE[k - 1] + '</small></button>';
+        }
+        h += '</div><div class="actions">' + fwd + skip + '</div>';
+      } else if (s.type === 'choice') {
+        var cv = valsFor(s);
+        h += '<div class="opts' + (cv.length >= 4 && !s.desc ? ' two' : '') + '">';
+        cv.forEach(function (v, idx) { h += optHTML(s, idx, v, prev === v); });
+        h += '</div><div class="actions">' + fwd + skip + '</div>';
+      } else {
+        var mv = valsFor(s);
+        h += '<div class="opts' + (mv.length >= 4 && !s.desc ? ' two' : '') + '" role="group">';
+        mv.forEach(function (v, idx) { h += optHTML(s, idx, v, false); });
+        h += '</div><p class="selcount" id="cnt" aria-live="polite"></p>';
+        if (s.type === 'objection') {
+          h += '<div class="fields why" id="why" hidden><label class="whyl" for="f0">Perché?</label>';
+          h += '<textarea id="f0" maxlength="600" placeholder="Scrivi qui">' + esc(st.answers.d20why || '') + '</textarea></div>';
+        }
+        h += '<div class="actions"><button class="primary" id="next" data-act="next" disabled>Avanti →</button>' + skip + '</div>';
+      }
+    }
+    h += '</div></section>';
+    return h;
+  }
+
+  function readFields(s) {
+    var f = function (i) { var el = document.getElementById('f' + i); return el ? el.value.trim() : ''; };
+    if (s.type === 'three') return [f(0), f(1), f(2)];
+    return f(0);
+  }
+  function canAdvance(s) {
+    if (s.type === 'long') return readFields(s).length > 0;
+    if (s.type === 'three') return readFields(s).every(function (x) { return x.length > 0; });
+    if (s.type === 'multi' || s.type === 'objection') {
+      var n = realSel().length, none = st.sel.indexOf(NONE) >= 0;
+      if (none) return true;
+      if (s.type === 'objection') return n >= 1 && readFields(s).length > 0;
+      if (s.exact) return n === s.max;
+      return n >= 1 && (!s.max || n <= s.max);
+    }
+    return true;
+  }
+
+  function updateMulti() {
+    var s = st.steps[st.i];
+    if (!s || (s.type !== 'multi' && s.type !== 'objection')) return;
+    var vals = valsFor(s), real = realSel(), full = !!s.max && real.length >= s.max;
+    view.querySelectorAll('.opt[data-i]').forEach(function (b) {
+      var v = vals[parseInt(b.getAttribute('data-i'), 10)], on = st.sel.indexOf(v) >= 0;
+      b.classList.toggle('sel', on);
+      b.classList.toggle('off', !on && v !== NONE && full);
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    var c = document.getElementById('cnt');
+    if (c) {
+      if (st.sel.indexOf(NONE) >= 0) c.textContent = s.none;
+      else if (s.max) c.textContent = real.length + ' di ' + s.max + (s.exact ? ' scelti' : ' al massimo');
+      else c.textContent = real.length ? real.length + (real.length === 1 ? ' scelto' : ' scelti') : '';
+    }
+    var why = document.getElementById('why');
+    if (why) why.hidden = real.length === 0 || st.sel.indexOf(NONE) >= 0;
+    var nb = document.getElementById('next');
+    if (nb) nb.disabled = !canAdvance(s);
+  }
+
+  function toggle(btn) {
+    var s = st.steps[st.i], vals = valsFor(s), v = vals[parseInt(btn.getAttribute('data-i'), 10)];
+    if (v === undefined) return;
+    var at = st.sel.indexOf(v);
+    if (v === NONE) st.sel = at >= 0 ? [] : [NONE];
+    else {
+      st.sel = st.sel.filter(function (x) { return x !== NONE; });
+      at = st.sel.indexOf(v);
+      if (at >= 0) st.sel.splice(at, 1);
+      else if (!s.max || st.sel.length < s.max) st.sel.push(v);
+    }
+    updateMulti();
+  }
+
+  function next() {
+    var j = st.i + 1;
+    if (j >= st.steps.length) { submit(); return; }
+    st.i = j; st.dir = 'fwd';
+    persist();
+    render();
+    try { window.scrollTo(0, 0); } catch (e) {}
+  }
+
+  function back() {
+    if (lock) return;
+    var s = st.steps[st.i];
+    if (st.i <= 0 || (s && s.noBack)) return;
+    st.i -= 1; st.dir = 'back';
+    persist();
+    render();
+    try { window.scrollTo(0, 0); } catch (e) {}
+  }
+
+  function onNext() {
+    if (lock) return;
+    var s = st.steps[st.i];
+    if (s.type === 'stim' || s.type === 'info' || s.type === 'lockups' || s.type === 'rate' || s.type === 'choice') { next(); return; }
+    if (!canAdvance(s)) return;
+    if (s.type === 'long' || s.type === 'recall' || s.type === 'three') setAns(s, readFields(s));
+    else if (s.type === 'multi') setAns(s, realSel());
+    else if (s.type === 'objection') {
+      var r = realSel();
+      setAns(s, r);
+      if (r.length) st.answers.d20why = readFields(s); else delete st.answers.d20why;
+    }
+    next();
+  }
+
+  /* Saltare una domanda non registra nulla e passa alla successiva. */
+  function skipStep() {
+    if (lock) return;
+    var s = st.steps[st.i];
+    if (!s || s.type === 'stim' || s.type === 'info' || s.type === 'lockups') return;
+    clearAns(s);
+    next();
+  }
+
+  function pick(btn) {
+    if (lock) return;
+    var s = st.steps[st.i], val;
+    if (s.type === 'rate') val = parseInt(btn.getAttribute('data-n'), 10);
+    else val = valsFor(s)[parseInt(btn.getAttribute('data-i'), 10)];
+    if (val === undefined || (typeof val === 'number' && isNaN(val))) return;
+    setAns(s, val);
+    view.querySelectorAll('.opt, .sc').forEach(function (b) { b.classList.remove('sel'); });
+    btn.classList.add('sel');
+    lock = true;
+    setTimeout(function () { lock = false; next(); }, 340);
+  }
+
+  function start() {
+    st.order = shuffle(NAMES.map(function (n) { return n.name; }));
+    st.answers = { p1: {} };
+    st.steps = buildSteps();
+    st.i = 0; st.dir = 'fwd'; st.view = 'quiz'; st.save = 'idle';
+    persist();
+    render();
+    try { window.scrollTo(0, 0); } catch (e) {}
+  }
+
+  /* ---------- Fine e salvataggio ---------- */
+  function summaryText() {
+    var L = [];
+    st.order.forEach(function (name) {
+      var o = st.answers.p1[name] || {};
+      L.push(name);
+      if (o.d1) L.push('  Cosa fa: ' + o.d1);
+      if (o.d2) L.push('  Caratteristiche: ' + o.d2.join(', '));
+      var nv = function (x) { return x === undefined ? '\u2014' : x; };
+      L.push('  Facile da ricordare ' + nv(o.d3) + '/5, professionale ' + nv(o.d4) + '/5, adatto a un progetto importante ' + nv(o.d5) + '/5');
+    });
+    AFTER.forEach(function (q) {
+      if (!q.id) return;
+      var a = st.answers[q.id];
+      if (a === undefined) return;
+      L.push(q.text + ' ' + (Array.isArray(a) ? (a.length ? a.join(', ') : 'Nessuno') : (a === '' ? '(vuoto)' : a)));
+      if (q.id === 'd20' && st.answers.d20why) L.push('  Perché: ' + st.answers.d20why);
+    });
+    return L.join('\n');
+  }
+
+  var sendId = null;
+  function newId() {
+    try { if (window.crypto && crypto.randomUUID) return crypto.randomUUID(); } catch (e) {}
+    return 'r-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+  }
+  function endpoint() { return (window.SONDAGGIO && window.SONDAGGIO.endpoint) || ''; }
+
+  /* Invia le risposte al Foglio Google. L'id evita i doppioni se l'invio viene ripetuto. */
+  async function send() {
+    var url = endpoint();
+    if (!url) { st.save = 'local'; return; }
+    if (!sendId) sendId = newId();
+    var body = JSON.stringify({ id: sendId, submittedAt: new Date().toISOString(), version: 3, order: st.order.slice(), answers: st.answers });
+    try {
+      var res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: body, redirect: 'follow' });
+      var j = null;
+      try { j = await res.json(); } catch (e) {}
+      st.save = (res.ok && j && j.ok === true) ? 'saved' : 'failed';
+    } catch (e) {
+      /* Se l'esito non è leggibile (CORS), il server può aver ricevuto comunque l'invio: si ripete senza leggerlo. */
+      try {
+        await fetch(url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: body });
+        st.save = 'saved';
+      } catch (e2) { st.save = 'failed'; }
+    }
+  }
+
+  async function submit() {
+    clearProgress();
+    st.view = 'done'; st.save = 'saving'; render();
+    try { window.scrollTo(0, 0); } catch (e) {}
+    await send();
+    if (st.view === 'done') render();
+  }
+  async function retry() {
+    st.save = 'saving'; render();
+    await send();
+    if (st.view === 'done') render();
+  }
+
+  function doneHTML() {
+    var s = st.save, h = '<section class="done">';
+    h += '<div><p class="tag">Fatto</p><h2>Grazie per le risposte.</h2></div>';
+    if (s === 'saving') h += '<p class="status">Sto inviando le risposte…</p>';
+    else if (s === 'saved') h += '<p class="status ok">Risposte inviate.</p>';
+    else {
+      h += '<p class="status warn">' + (s === 'local'
+        ? 'Il sondaggio non è ancora collegato a un archivio, quindi le risposte non sono state inviate.'
+        : 'Non siamo riusciti a inviare le risposte. Controlla la connessione e riprova.') + '</p>';
+      h += '<textarea id="sum" readonly>' + esc(summaryText()) + '</textarea>';
+      h += '<div class="actions">' + (s === 'failed' ? '<button class="primary" data-act="retry">Riprova</button>' : '') +
+        '<button class="' + (s === 'failed' ? 'secondary' : 'primary') + '" data-act="copy" id="copyBtn">Copia il riepilogo</button></div>';
+    }
+    return h + '</section>';
+  }
+
+  function copySummary() {
+    var btn = document.getElementById('copyBtn'), ta = document.getElementById('sum');
+    var ok = function () { if (btn) btn.textContent = 'Copiato'; };
+    var fallback = function () { if (ta) { ta.focus(); ta.select(); } if (btn) btn.textContent = 'Testo selezionato, copialo'; };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(summaryText()).then(ok, fallback);
+      else fallback();
+    } catch (e) { fallback(); }
+  }
+
+  /* ---------- Render e eventi ---------- */
+  function render() {
+    if (st.view === 'home') view.innerHTML = homeHTML();
+    else if (st.view === 'quiz') {
+      st.sel = initialSel(st.steps[st.i]);
+      view.innerHTML = quizHTML();
+      updateMulti();
+      var f = document.getElementById('f0');
+      if (f) { try { f.focus({ preventScroll: true }); } catch (e) {} }
+    }
+    else if (st.view === 'done') view.innerHTML = doneHTML();
+  }
+
+  view.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-act]');
+    if (!b) return;
+    var act = b.getAttribute('data-act');
+    if (act === 'start') start();
+    else if (act === 'pick') pick(b);
+    else if (act === 'toggle') toggle(b);
+    else if (act === 'next') onNext();
+    else if (act === 'skip') skipStep();
+    else if (act === 'back') back();
+    else if (act === 'copy') copySummary();
+    else if (act === 'retry') retry();
+  });
+
+  view.addEventListener('input', function (e) {
+    if (!e.target.closest || !e.target.closest('.fields')) return;
+    var s = st.steps[st.i], btn = document.getElementById('next');
+    if (s && btn && s.type !== 'recall') btn.disabled = !canAdvance(s);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (st.view !== 'quiz' || e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target, s = st.steps[st.i];
+    if (t && t.tagName === 'INPUT' && e.key === 'Enter') {
+      e.preventDefault();
+      var k = parseInt(t.id.replace('f', ''), 10), nx = document.getElementById('f' + (k + 1));
+      if (nx) nx.focus();
+      else { var nb = document.getElementById('next'); if (nb && !nb.disabled) nb.click(); }
+      return;
+    }
+    if (t && (t.tagName === 'TEXTAREA' || t.tagName === 'INPUT')) return;
+    var key = e.key.toLowerCase(), btn = null;
+    if (s.type === 'rate' && /^[1-5]$/.test(key)) btn = view.querySelector('.sc[data-n="' + key + '"]');
+    else if (s.type === 'choice' || s.type === 'multi' || s.type === 'objection') {
+      var idx = /^[a-j]$/.test(key) ? key.charCodeAt(0) - 97 : (/^[1-9]$/.test(key) ? parseInt(key, 10) - 1 : -1);
+      if (idx >= 0) btn = view.querySelector('.opt[data-i="' + idx + '"]');
+      else if (e.key === 'Enter' && s.type !== 'choice') btn = document.getElementById('next');
+    } else if ((s.type === 'stim' || s.type === 'info' || s.type === 'lockups') && e.key === 'Enter') btn = document.getElementById('next');
+    if (btn && !btn.disabled) {
+      e.preventDefault();
+      var a = btn.getAttribute('data-act');
+      if (a === 'pick') pick(btn); else if (a === 'toggle') toggle(btn); else btn.click();
+    }
+  });
+
+  restore();
+  render();
+})();
+</script>
+</body>
+</html>
